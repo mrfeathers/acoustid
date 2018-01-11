@@ -63,7 +63,7 @@ class AcoustidClient
     {
         $response = $this->createRequest()
             ->addParameters([
-                    'fingerprint' => $fingerPrint->getFingerPrint(),
+                    'fingerprint' => $fingerPrint->getFingerprint(),
                     'duration' => $fingerPrint->getDuration(),
                     'meta' => $meta,
                     'format' => self::FORMAT,

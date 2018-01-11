@@ -6,13 +6,13 @@ namespace AcoustidApi\RequestModel;
 class FingerPrint
 {
     /** @var string */
-    private $fingerPrint;
+    private $fingerprint;
     /** @var int */
     private $duration;
     /** @var int|null */
     private $birate = null;
     /** @var string|null */
-    private $fileFormat = null;
+    private $fileformat = null;
     /** @var string|null */
     private $mbid = null;
     /** @var string|null */
@@ -22,13 +22,13 @@ class FingerPrint
     /** @var string|null */
     private $album = null;
     /** @var string|null */
-    private $albumArtist = null;
+    private $albumartist = null;
     /** @var int|null */
     private $year = null;
     /** @var int|null */
-    private $trackNumber = null;
+    private $trackno = null;
     /** @var int|null */
-    private $discNumber = null;
+    private $discno = null;
 
     /**
      * FingerPrint constructor.
@@ -38,16 +38,16 @@ class FingerPrint
      */
     public function __construct(string $fingerPrint, int $duration)
     {
-        $this->setFingerPrint($fingerPrint)
+        $this->setFingerprint($fingerPrint)
             ->setDuration($duration);
     }
 
     /**
      * @return string
      */
-    public function getFingerPrint(): string
+    public function getFingerprint(): string
     {
-        return $this->fingerPrint;
+        return $this->fingerprint;
     }
 
     /**
@@ -69,9 +69,9 @@ class FingerPrint
     /**
      * @return string|null
      */
-    public function getFileFormat(): ?string
+    public function getFileformat(): ?string
     {
-        return $this->fileFormat;
+        return $this->fileformat;
     }
 
     /**
@@ -109,9 +109,9 @@ class FingerPrint
     /**
      * @return string|null
      */
-    public function getAlbumArtist(): ?string
+    public function getAlbumartist(): ?string
     {
-        return $this->albumArtist;
+        return $this->albumartist;
     }
 
     /**
@@ -125,27 +125,27 @@ class FingerPrint
     /**
      * @return int|null
      */
-    public function getTrackNumber(): ?int
+    public function getTrackno(): ?int
     {
-        return $this->trackNumber;
+        return $this->trackno;
     }
 
     /**
      * @return int|null
      */
-    public function getDiscNumber(): ?int
+    public function getDiscno(): ?int
     {
-        return $this->discNumber;
+        return $this->discno;
     }
 
     /**
-     * @param string $fingerPrint
+     * @param string $fingerprint
      *
      * @return FingerPrint
      */
-    public function setFingerPrint(string $fingerPrint): FingerPrint
+    public function setFingerprint(string $fingerprint): FingerPrint
     {
-        $this->fingerPrint = $fingerPrint;
+        $this->fingerprint = $fingerprint;
         return $this;
     }
 
@@ -172,13 +172,13 @@ class FingerPrint
     }
 
     /**
-     * @param string $fileFormat
+     * @param string $fileformat
      *
      * @return FingerPrint
      */
-    public function setFileFormat(string $fileFormat): FingerPrint
+    public function setFileformat(string $fileformat): FingerPrint
     {
-        $this->fileFormat = $fileFormat;
+        $this->fileformat = $fileformat;
         return $this;
     }
 
@@ -227,13 +227,13 @@ class FingerPrint
     }
 
     /**
-     * @param string $albumArtist
+     * @param string $albumartist
      *
      * @return FingerPrint
      */
-    public function setAlbumArtist(string $albumArtist): FingerPrint
+    public function setAlbumartist(string $albumartist): FingerPrint
     {
-        $this->albumArtist = $albumArtist;
+        $this->albumartist = $albumartist;
         return $this;
     }
 
@@ -249,25 +249,24 @@ class FingerPrint
     }
 
     /**
-     * @param int $trackNumber
+     * @param int $trackno
      *
      * @return FingerPrint
      */
-    public function setTrackNumber(int $trackNumber): FingerPrint
+    public function setTrackno(int $trackno): FingerPrint
     {
-        $this->trackNumber = $trackNumber;
+        $this->trackno = $trackno;
         return $this;
     }
 
     /**
-     * @param int $discNumber
+     * @param int $discno
      *
      * @return FingerPrint
      */
-    public function setDiscNumber(int $discNumber): FingerPrint
+    public function setDiscno(int $discno): FingerPrint
     {
-        $this->discNumber = $discNumber;
+        $this->discno = $discno;
         return $this;
     }
-
 }

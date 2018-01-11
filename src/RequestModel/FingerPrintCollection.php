@@ -9,6 +9,11 @@ class FingerPrintCollection implements \IteratorAggregate
     /** @var FingerPrint[] */
     private $fingerPrints;
 
+    public function __construct(array $fingerPrints)
+    {
+        $this->fingerPrints = $fingerPrints;
+    }
+
     /**
      * Retrieve an external iterator
      * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
@@ -19,6 +24,14 @@ class FingerPrintCollection implements \IteratorAggregate
     public function getIterator()
     {
         return new \ArrayIterator($this->fingerPrints);
+    }
+
+    /**
+     * @return FingerPrint[]|array
+     */
+    public function getFingerPrints(): array
+    {
+        return $this->fingerPrints;
     }
 
     /**
