@@ -30,12 +30,14 @@ class Request
     /**
      * Request constructor.
      *
-     * @param string $apiKey
+     * @param null|string $apiKey
      */
-    public function __construct(string $apiKey)
+    public function __construct(?string $apiKey = null)
     {
         $this->guzzleClient = new Client(['base_uri' => self::BASE_URI]);
-        $this->addParameter('client', $apiKey);
+        if ($apiKey !== null) {
+            $this->addParameter('client', $apiKey);
+        }
         $this->options[RequestOptions::HEADERS]['Accept'] = self::ACCEPT;
     }
 

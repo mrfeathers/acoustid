@@ -4,12 +4,8 @@ namespace AcoustidApi;
 
 use AcoustidApi\DataCompressor\GzipCompressor;
 use AcoustidApi\Exceptions\AcoustidException;
-use AcoustidApi\RequestModel\FingerPrint;
-use AcoustidApi\RequestModel\FingerPrintCollection;
-use AcoustidApi\RequestModel\FingerPrintCollectionNormalizer;
-use AcoustidApi\ResponseModel\Collection\{
-    CollectionModel, MBIdCollection, SubmissionCollection, TrackCollection
-};
+use AcoustidApi\RequestModel\{FingerPrint, FingerPrintCollection, FingerPrintCollectionNormalizer};
+use AcoustidApi\ResponseModel\Collection\{CollectionModel, MBIdCollection, SubmissionCollection, TrackCollection};
 use AcoustidApi\ResponseModel\Collection\ResultCollection;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
@@ -26,7 +22,7 @@ class AcoustidClient
 {
     const FORMAT = 'json';
 
-    /** @var string */
+    /** @var null|string */
     private $apiKey;
 
     /** @var SerializerInterface */
@@ -35,9 +31,9 @@ class AcoustidClient
     /**
      * AcoustidClient constructor.
      *
-     * @param string $apiKey
+     * @param null|string $apiKey
      */
-    public function __construct(string $apiKey)
+    public function __construct(?string $apiKey = null)
     {
         $this->apiKey = $apiKey;
         $normalizers = [
@@ -51,6 +47,49 @@ class AcoustidClient
         $this->serializer = new Serializer($normalizers, [new JsonEncoder()]);
     }
 
+    /**
+     * @throws AcoustidException
+     */
+    private function checkApiKey(): void
+    {
+        if ($this->apiKey === null) {
+            throw new AcoustidException('You need to set api key to use this method');
+        }
+    }
+
+    /**
+     * @return Request
+     */
+    private function createRequest(): Request
+    {
+        return new Request($this->apiKey);
+    }
+
+    /**
+     * @param ResponseInterface $response
+     * @param string $resultType
+     *
+     * @return mixed
+     * @throws AcoustidException
+     */
+    private function processResponse(ResponseInterface $response, string $resultType)
+    {
+        if ($response->getStatusCode() != 200) {
+            throw new AcoustidException($response->getReasonPhrase());
+        }
+
+        $content = $response->getBody()->getContents();
+
+        return $this->serializer->deserialize($content, $resultType, self::FORMAT);
+    }
+
+    /**
+     * @param string $apiKey
+     */
+    public function setApiKey(string $apiKey): void
+    {
+        $this->apiKey = $apiKey;
+    }
 
     /**
      * @param FingerPrint $fingerPrint
@@ -61,6 +100,7 @@ class AcoustidClient
      */
     public function lookupByFingerPrint(FingerPrint $fingerPrint, array $meta = []): ResultCollection
     {
+        $this->checkApiKey();
         $response = $this->createRequest()
             ->addParameters([
                     'fingerprint' => $fingerPrint->getFingerprint(),
@@ -82,6 +122,7 @@ class AcoustidClient
      */
     public function lookupByTrackId(string $trackId, array $meta = []): ResultCollection
     {
+        $this->checkApiKey();
         $response = $this->createRequest()
             ->addParameters([
                     'trackid' => $trackId,
@@ -104,6 +145,7 @@ class AcoustidClient
      */
     public function submit(FingerPrintCollection $fingerPrints, string $userApiKey, string $clientVersion = '1.0', int $wait = 1): SubmissionCollection
     {
+        $this->checkApiKey();
         $response = $this->createRequest()
             ->addParameters([
                 'user' => $userApiKey,
@@ -125,6 +167,7 @@ class AcoustidClient
      */
     public function getSubmissionStatus(int $submissionId, string $clientVersion = '1.0'): SubmissionCollection
     {
+        $this->checkApiKey();
         $response = $this->createRequest()
             ->addParameters([
                 'id' => $submissionId,
@@ -154,32 +197,6 @@ class AcoustidClient
         $resultType = $batch ? MBIdCollection::class : TrackCollection::class;
 
         return $this->processResponse($response, $resultType);
-    }
-
-    /**
-     * @return Request
-     */
-    private function createRequest(): Request
-    {
-        return new Request($this->apiKey);
-    }
-
-    /**
-     * @param ResponseInterface $response
-     * @param string $resultType
-     *
-     * @return mixed
-     * @throws AcoustidException
-     */
-    private function processResponse(ResponseInterface $response, string $resultType)
-    {
-        if ($response->getStatusCode() != 200) {
-            throw new AcoustidException($response->getReasonPhrase());
-        }
-
-        $content = $response->getBody()->getContents();
-
-        return $this->serializer->deserialize($content, $resultType, self::FORMAT);
     }
 
 }
