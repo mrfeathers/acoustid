@@ -12,18 +12,20 @@ class Request
     const BASE_URI = 'http://api.acoustid.org/v2/';
     const ACCEPT = 'application/json';
 
+    /** @var null|string  */
+    protected $apiKey = null;
     /**
      * @var array
      */
-    protected $parameters;
+    protected $parameters = [];
 
     /**
      * @var array
      */
-    protected $options;
+    protected $options = [];
 
     /**
-     * @var AcoustIdClient
+     * @var Client
      */
     protected $guzzleClient;
 
@@ -34,11 +36,17 @@ class Request
      */
     public function __construct(?string $apiKey = null)
     {
+        $this->apiKey = $apiKey;
         $this->guzzleClient = new Client(['base_uri' => self::BASE_URI]);
-        if ($apiKey !== null) {
-            $this->addParameter('client', $apiKey);
-        }
         $this->options[RequestOptions::HEADERS]['Accept'] = self::ACCEPT;
+    }
+
+    /**
+     * @return Client
+     */
+    protected function getClient(): Client
+    {
+        return $this->guzzleClient;
     }
 
     /**
@@ -75,6 +83,7 @@ class Request
      */
     private function getQueryString(): string
     {
+        $this->apiKey && $this->addParameter('client', $this->apiKey);
         return implode('&', array_map(function ($item) {
             return $item['name'] . '=' . $item['value'];
         }, $this->parameters));
@@ -88,7 +97,7 @@ class Request
      */
     public function sendGet(string $uri): ResponseInterface
     {
-        return $this->guzzleClient->get($uri, array_merge([RequestOptions::QUERY => $this->getQueryString()], $this->options));
+        return $this->getClient()->get($uri, array_merge([RequestOptions::QUERY => $this->getQueryString()], $this->options));
     }
 
     /**
@@ -99,12 +108,12 @@ class Request
      */
     public function sendCompressedPost(DataCompressorInterface $compressor, string $uri): ResponseInterface
     {
-        $this->options[RequestOptions::HEADERS]['Content-Encoding'] = $compressor->getContentEncoding();
+        $this->options[RequestOptions::HEADERS]['Content-Encoding'] = $compressor->getFormat();
         $this->options[RequestOptions::HEADERS]['Content-Type'] = 'application/x-www-form-urlencoded';
 
         $body = $compressor->compress($this->getQueryString());
 
-        return $this->guzzleClient->post($uri, array_merge(
+        return $this->getClient()->post($uri, array_merge(
             [RequestOptions::BODY => $body], $this->options
         ));
     }

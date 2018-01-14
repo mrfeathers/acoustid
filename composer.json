@@ -1,12 +1,14 @@
 {
     "name": "mrfeathers/acoustid",
-    "description": "PHP Wrapper for API acoustid.org",
+    "description": "Object Oriented PHP Wrapper for acoustid.org API",
     "type": "library",
     "keywords": [
         "acoustid",
-        "library",
+        "music",
+        "fingerprint",
+        "api",
         "php",
-        "api"
+        "library"
     ],
     "minimum-stability": "dev",
     "license": "MIT",
@@ -27,7 +29,9 @@
         "guzzlehttp/guzzle-services": "^1.1",
         "symfony/serializer": "^4.0",
         "symfony/property-info": "^4.0",
-        "symfony/property-access": "^4.0"
+        "symfony/property-access": "^4.0",
+        "mockery/mockery": "^1.0",
+        "fzaninotto/faker": "^1.7"
     },
     "autoload-dev": {
         "psr-4": {

@@ -1,0 +1,473 @@
+{
+  "status": "ok",
+  "results": [
+    {
+      "recordings": [
+        {
+          "sources": 360,
+          "releasegroups": [
+            {
+              "id": "425771a3-31a4-4dc2-9dee-f2993611b44b",
+              "releases": [
+                {
+                  "mediums": [
+                    {
+                      "position": 1,
+                      "tracks": [
+                        {
+                          "position": 12,
+                          "artists": [
+                            {
+                              "id": "6d7b7cd4-254b-4c25-83f6-dd20f98ceacd",
+                              "name": "M83"
+                            }
+                          ],
+                          "id": "a4e37f98-00db-40aa-9d82-9721e30ec8bc",
+                          "title": "Lower Your Eyelids to Die With the Sun"
+                        }
+                      ],
+                      "track_count": 26,
+                      "format": "Digital Media"
+                    }
+                  ],
+                  "id": "9531365c-a927-4cff-92a4-214eee02ad12"
+                },
+                {
+                  "mediums": [
+                    {
+                      "position": 1,
+                      "tracks": [
+                        {
+                          "position": 12,
+                          "artists": [
+                            {
+                              "id": "6d7b7cd4-254b-4c25-83f6-dd20f98ceacd",
+                              "name": "M83"
+                            }
+                          ],
+                          "id": "0a283f7e-f054-4902-9ece-c739209257c3",
+                          "title": "Lower Your Eyelids to Die With the Sun"
+                        }
+                      ],
+                      "track_count": 12,
+                      "format": "CD"
+                    }
+                  ],
+                  "id": "9753afee-6f9c-4d7c-8869-a5d7fdac03e4"
+                }
+              ]
+            },
+            {
+              "id": "9e585041-f2c1-3f0d-be40-40c845a3323f",
+              "releases": [
+                {
+                  "mediums": [
+                    {
+                      "position": 1,
+                      "tracks": [
+                        {
+                          "position": 16,
+                          "artists": [
+                            {
+                              "id": "6d7b7cd4-254b-4c25-83f6-dd20f98ceacd",
+                              "name": "M83"
+                            }
+                          ],
+                          "id": "4fd1dd68-e34e-3d01-ae80-4e86332122e8",
+                          "title": "Lower Your Eyelids to Die With the Sun"
+                        }
+                      ],
+                      "track_count": 16,
+                      "format": "CD"
+                    }
+                  ],
+                  "id": "11de51d7-32c0-4f8b-8df8-1dce7e65245f"
+                }
+              ]
+            },
+            {
+              "id": "ddaa2d4d-314e-3e7c-b1d0-f6d207f5aa2f",
+              "releases": [
+                {
+                  "mediums": [
+                    {
+                      "position": 1,
+                      "tracks": [
+                        {
+                          "position": 15,
+                          "artists": [
+                            {
+                              "id": "6d7b7cd4-254b-4c25-83f6-dd20f98ceacd",
+                              "name": "M83"
+                            }
+                          ],
+                          "id": "ea4607f2-25ff-47cb-b5a5-6016cf1e035d",
+                          "title": "Lower Your Eyelids to Die With the Sun"
+                        }
+                      ],
+                      "track_count": 15,
+                      "format": "CD"
+                    }
+                  ],
+                  "id": "6aad0703-e892-4e2a-96c5-bbf18cac534b"
+                },
+                {
+                  "mediums": [
+                    {
+                      "position": 2,
+                      "tracks": [
+                        {
+                          "position": 6,
+                          "artists": [
+                            {
+                              "id": "6d7b7cd4-254b-4c25-83f6-dd20f98ceacd",
+                              "name": "M83"
+                            }
+                          ],
+                          "id": "2bf55bac-9d5b-4e4d-b8b0-346546f29eca",
+                          "title": "Lower Your Eyelids to Die With the Sun"
+                        }
+                      ],
+                      "track_count": 6,
+                      "format": "12\" Vinyl"
+                    }
+                  ],
+                  "id": "e719659b-f591-4faf-ae77-f7f9ccc921c0"
+                },
+                {
+                  "mediums": [
+                    {
+                      "position": 1,
+                      "tracks": [
+                        {
+                          "position": 15,
+                          "artists": [
+                            {
+                              "id": "6d7b7cd4-254b-4c25-83f6-dd20f98ceacd",
+                              "name": "M83"
+                            }
+                          ],
+                          "id": "3aec84bc-226f-3558-b4f7-5524f7d85741",
+                          "title": "Lower Your Eyelids to Die With the Sun"
+                        }
+                      ],
+                      "track_count": 15,
+                      "format": "CD"
+                    }
+                  ],
+                  "id": "db85c244-53e7-441c-bab0-52c9c0d27450"
+                },
+                {
+                  "mediums": [
+                    {
+                      "position": 1,
+                      "tracks": [
+                        {
+                          "position": 15,
+                          "artists": [
+                            {
+                              "id": "6d7b7cd4-254b-4c25-83f6-dd20f98ceacd",
+                              "name": "M83"
+                            }
+                          ],
+                          "id": "1fa99ada-56fa-4635-b488-4d60db9e9c15",
+                          "title": "Lower Your Eyelids to Die With the Sun"
+                        }
+                      ],
+                      "track_count": 15,
+                      "format": "Digital Media"
+                    }
+                  ],
+                  "id": "4e9c3a6b-9507-450a-b513-4aa738624078"
+                },
+                {
+                  "mediums": [
+                    {
+                      "position": 1,
+                      "tracks": [
+                        {
+                          "position": 15,
+                          "artists": [
+                            {
+                              "id": "6d7b7cd4-254b-4c25-83f6-dd20f98ceacd",
+                              "name": "M83"
+                            }
+                          ],
+                          "id": "1176769b-fa55-3697-bd1a-54fdb743837d",
+                          "title": "Lower Your Eyelids to Die With the Sun"
+                        }
+                      ],
+                      "track_count": 16,
+                      "format": "CD"
+                    }
+                  ],
+                  "id": "79903505-a23e-4790-8cd5-d5d801337f46"
+                },
+                {
+                  "mediums": [
+                    {
+                      "position": 1,
+                      "tracks": [
+                        {
+                          "position": 15,
+                          "artists": [
+                            {
+                              "id": "6d7b7cd4-254b-4c25-83f6-dd20f98ceacd",
+                              "name": "M83"
+                            }
+                          ],
+                          "id": "a464f058-3b65-3d8b-80c5-7bbefbbb9a5b",
+                          "title": "Lower Your Eyelids to Die With the Sun"
+                        }
+                      ],
+                      "track_count": 15,
+                      "format": "CD"
+                    }
+                  ],
+                  "id": "fad5e4b4-13ac-3f6c-9915-1f0267780df7"
+                }
+              ]
+            }
+          ],
+          "id": "cd2e7c47-16f5-46c6-a37c-a1eb7bf599ff"
+        }
+      ],
+      "score": 1.0,
+      "id": "9ff43b6a-4f16-427c-93c2-92307ca505e0"
+    },
+    {
+      "recordings": [
+        {
+          "sources": 1,
+          "releasegroups": [
+            {
+              "id": "425771a3-31a4-4dc2-9dee-f2993611b44b",
+              "releases": [
+                {
+                  "mediums": [
+                    {
+                      "position": 1,
+                      "tracks": [
+                        {
+                          "position": 12,
+                          "artists": [
+                            {
+                              "id": "6d7b7cd4-254b-4c25-83f6-dd20f98ceacd",
+                              "name": "M83"
+                            }
+                          ],
+                          "id": "a4e37f98-00db-40aa-9d82-9721e30ec8bc",
+                          "title": "Lower Your Eyelids to Die With the Sun"
+                        }
+                      ],
+                      "track_count": 26,
+                      "format": "Digital Media"
+                    }
+                  ],
+                  "id": "9531365c-a927-4cff-92a4-214eee02ad12"
+                },
+                {
+                  "mediums": [
+                    {
+                      "position": 1,
+                      "tracks": [
+                        {
+                          "position": 12,
+                          "artists": [
+                            {
+                              "id": "6d7b7cd4-254b-4c25-83f6-dd20f98ceacd",
+                              "name": "M83"
+                            }
+                          ],
+                          "id": "0a283f7e-f054-4902-9ece-c739209257c3",
+                          "title": "Lower Your Eyelids to Die With the Sun"
+                        }
+                      ],
+                      "track_count": 12,
+                      "format": "CD"
+                    }
+                  ],
+                  "id": "9753afee-6f9c-4d7c-8869-a5d7fdac03e4"
+                }
+              ]
+            },
+            {
+              "id": "9e585041-f2c1-3f0d-be40-40c845a3323f",
+              "releases": [
+                {
+                  "mediums": [
+                    {
+                      "position": 1,
+                      "tracks": [
+                        {
+                          "position": 16,
+                          "artists": [
+                            {
+                              "id": "6d7b7cd4-254b-4c25-83f6-dd20f98ceacd",
+                              "name": "M83"
+                            }
+                          ],
+                          "id": "4fd1dd68-e34e-3d01-ae80-4e86332122e8",
+                          "title": "Lower Your Eyelids to Die With the Sun"
+                        }
+                      ],
+                      "track_count": 16,
+                      "format": "CD"
+                    }
+                  ],
+                  "id": "11de51d7-32c0-4f8b-8df8-1dce7e65245f"
+                }
+              ]
+            },
+            {
+              "id": "ddaa2d4d-314e-3e7c-b1d0-f6d207f5aa2f",
+              "releases": [
+                {
+                  "mediums": [
+                    {
+                      "position": 1,
+                      "tracks": [
+                        {
+                          "position": 15,
+                          "artists": [
+                            {
+                              "id": "6d7b7cd4-254b-4c25-83f6-dd20f98ceacd",
+                              "name": "M83"
+                            }
+                          ],
+                          "id": "ea4607f2-25ff-47cb-b5a5-6016cf1e035d",
+                          "title": "Lower Your Eyelids to Die With the Sun"
+                        }
+                      ],
+                      "track_count": 15,
+                      "format": "CD"
+                    }
+                  ],
+                  "id": "6aad0703-e892-4e2a-96c5-bbf18cac534b"
+                },
+                {
+                  "mediums": [
+                    {
+                      "position": 2,
+                      "tracks": [
+                        {
+                          "position": 6,
+                          "artists": [
+                            {
+                              "id": "6d7b7cd4-254b-4c25-83f6-dd20f98ceacd",
+                              "name": "M83"
+                            }
+                          ],
+                          "id": "2bf55bac-9d5b-4e4d-b8b0-346546f29eca",
+                          "title": "Lower Your Eyelids to Die With the Sun"
+                        }
+                      ],
+                      "track_count": 6,
+                      "format": "12\" Vinyl"
+                    }
+                  ],
+                  "id": "e719659b-f591-4faf-ae77-f7f9ccc921c0"
+                },
+                {
+                  "mediums": [
+                    {
+                      "position": 1,
+                      "tracks": [
+                        {
+                          "position": 15,
+                          "artists": [
+                            {
+                              "id": "6d7b7cd4-254b-4c25-83f6-dd20f98ceacd",
+                              "name": "M83"
+                            }
+                          ],
+                          "id": "3aec84bc-226f-3558-b4f7-5524f7d85741",
+                          "title": "Lower Your Eyelids to Die With the Sun"
+                        }
+                      ],
+                      "track_count": 15,
+                      "format": "CD"
+                    }
+                  ],
+                  "id": "db85c244-53e7-441c-bab0-52c9c0d27450"
+                },
+                {
+                  "mediums": [
+                    {
+                      "position": 1,
+                      "tracks": [
+                        {
+                          "position": 15,
+                          "artists": [
+                            {
+                              "id": "6d7b7cd4-254b-4c25-83f6-dd20f98ceacd",
+                              "name": "M83"
+                            }
+                          ],
+                          "id": "1fa99ada-56fa-4635-b488-4d60db9e9c15",
+                          "title": "Lower Your Eyelids to Die With the Sun"
+                        }
+                      ],
+                      "track_count": 15,
+                      "format": "Digital Media"
+                    }
+                  ],
+                  "id": "4e9c3a6b-9507-450a-b513-4aa738624078"
+                },
+                {
+                  "mediums": [
+                    {
+                      "position": 1,
+                      "tracks": [
+                        {
+                          "position": 15,
+                          "artists": [
+                            {
+                              "id": "6d7b7cd4-254b-4c25-83f6-dd20f98ceacd",
+                              "name": "M83"
+                            }
+                          ],
+                          "id": "1176769b-fa55-3697-bd1a-54fdb743837d",
+                          "title": "Lower Your Eyelids to Die With the Sun"
+                        }
+                      ],
+                      "track_count": 16,
+                      "format": "CD"
+                    }
+                  ],
+                  "id": "79903505-a23e-4790-8cd5-d5d801337f46"
+                },
+                {
+                  "mediums": [
+                    {
+                      "position": 1,
+                      "tracks": [
+                        {
+                          "position": 15,
+                          "artists": [
+                            {
+                              "id": "6d7b7cd4-254b-4c25-83f6-dd20f98ceacd",
+                              "name": "M83"
+                            }
+                          ],
+                          "id": "a464f058-3b65-3d8b-80c5-7bbefbbb9a5b",
+                          "title": "Lower Your Eyelids to Die With the Sun"
+                        }
+                      ],
+                      "track_count": 15,
+                      "format": "CD"
+                    }
+                  ],
+                  "id": "fad5e4b4-13ac-3f6c-9915-1f0267780df7"
+                }
+              ]
+            }
+          ],
+          "id": "cd2e7c47-16f5-46c6-a37c-a1eb7bf599ff"
+        }
+      ],
+      "score": 1.0,
+      "id": "be6fa248-97d1-4a18-845b-7c6a070b764c"
+    }
+  ]
+}

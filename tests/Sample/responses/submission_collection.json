@@ -1,0 +1,18 @@
+{
+  "status": "ok",
+  "submissions": [
+    {
+      "index": 0,
+      "id": 123456789,
+      "status": "imported",
+      "result": {
+        "id": "9ff43b6a-4f16-427c-93c2-92307ca505e0"
+      }
+    },
+    {
+      "index": 1,
+      "id": 123456790,
+      "status": "pending"
+    }
+  ]
+}

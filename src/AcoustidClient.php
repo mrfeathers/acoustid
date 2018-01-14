@@ -4,19 +4,13 @@ namespace AcoustidApi;
 
 use AcoustidApi\DataCompressor\GzipCompressor;
 use AcoustidApi\Exceptions\AcoustidException;
-use AcoustidApi\RequestModel\{FingerPrint, FingerPrintCollection, FingerPrintCollectionNormalizer};
+use AcoustidApi\RequestModel\{
+    FingerPrint, FingerPrintCollection, FingerPrintCollectionNormalizer
+};
 use AcoustidApi\ResponseModel\Collection\{CollectionModel, MBIdCollection, SubmissionCollection, TrackCollection};
 use AcoustidApi\ResponseModel\Collection\ResultCollection;
-use Psr\Http\Message\ResponseInterface;
-use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
-use Symfony\Component\Serializer\{
-    Encoder\JsonEncoder,
-    Normalizer\ArrayDenormalizer,
-    Normalizer\DateTimeNormalizer,
-    Normalizer\ObjectNormalizer,
-    Serializer,
-    SerializerInterface
-};
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Serializer;
 
 class AcoustidClient
 {
@@ -25,8 +19,8 @@ class AcoustidClient
     /** @var null|string */
     private $apiKey;
 
-    /** @var SerializerInterface */
-    private $serializer;
+    /** @var ResponseProcessor */
+    private $responseProcessor;
 
     /**
      * AcoustidClient constructor.
@@ -36,15 +30,7 @@ class AcoustidClient
     public function __construct(?string $apiKey = null)
     {
         $this->apiKey = $apiKey;
-        $normalizers = [
-            new ObjectNormalizer(
-                null, null, null, new ReflectionExtractor()
-            ),
-            new ArrayDenormalizer(),
-            new DateTimeNormalizer(),
-            new FingerPrintCollectionNormalizer(),
-        ];
-        $this->serializer = new Serializer($normalizers, [new JsonEncoder()]);
+        $this->responseProcessor = new ResponseProcessor();
     }
 
     /**
@@ -60,28 +46,11 @@ class AcoustidClient
     /**
      * @return Request
      */
-    private function createRequest(): Request
+    protected function createRequest(): Request
     {
         return new Request($this->apiKey);
     }
 
-    /**
-     * @param ResponseInterface $response
-     * @param string $resultType
-     *
-     * @return mixed
-     * @throws AcoustidException
-     */
-    private function processResponse(ResponseInterface $response, string $resultType)
-    {
-        if ($response->getStatusCode() != 200) {
-            throw new AcoustidException($response->getReasonPhrase());
-        }
-
-        $content = $response->getBody()->getContents();
-
-        return $this->serializer->deserialize($content, $resultType, self::FORMAT);
-    }
 
     /**
      * @param string $apiKey
@@ -110,7 +79,7 @@ class AcoustidClient
                 ]
             )->sendCompressedPost(new GzipCompressor(), Actions::LOOKUP);
 
-        return $this->processResponse($response, ResultCollection::class);
+        return $this->responseProcessor->process($response, ResultCollection::class, self::FORMAT);
     }
 
     /**
@@ -131,7 +100,7 @@ class AcoustidClient
                 ]
             )->sendGet(Actions::LOOKUP);
 
-        return $this->processResponse($response, ResultCollection::class);
+        return $this->responseProcessor->process($response, ResultCollection::class, self::FORMAT);
     }
 
     /**
@@ -146,16 +115,19 @@ class AcoustidClient
     public function submit(FingerPrintCollection $fingerPrints, string $userApiKey, string $clientVersion = '1.0', int $wait = 1): SubmissionCollection
     {
         $this->checkApiKey();
+
+        $serializer = new Serializer([new FingerPrintCollectionNormalizer()]);
+        $normalizedFingerPrints = $serializer->normalize($fingerPrints);
         $response = $this->createRequest()
             ->addParameters([
                 'user' => $userApiKey,
                 'clientversion' => $clientVersion,
                 'wait' => $wait,
             ])
-            ->addParameters($this->serializer->normalize($fingerPrints))
+            ->addParameters($normalizedFingerPrints)
             ->sendCompressedPost(new GzipCompressor(), Actions::SUBMIT);
 
-        return $this->processResponse($response, SubmissionCollection::class);
+        return $this->responseProcessor->process($response, SubmissionCollection::class, self::FORMAT);
     }
 
     /**
@@ -176,7 +148,7 @@ class AcoustidClient
             ])
             ->sendGet(Actions::SUBMISSION_STATUS);
 
-        return $this->processResponse($response, SubmissionCollection::class);
+        return $this->responseProcessor->process($response, SubmissionCollection::class, self::FORMAT);
     }
 
     /**
@@ -196,7 +168,7 @@ class AcoustidClient
 
         $resultType = $batch ? MBIdCollection::class : TrackCollection::class;
 
-        return $this->processResponse($response, $resultType);
+        return $this->responseProcessor->process($response, $resultType, self::FORMAT);
     }
 
 }

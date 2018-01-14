@@ -1,6 +1,6 @@
 <?php
 
-namespace AcoustIdApi;
+namespace AcoustidApi;
 
 final class Actions
 {
