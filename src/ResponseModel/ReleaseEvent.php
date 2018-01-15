@@ -7,7 +7,7 @@ class ReleaseEvent
 {
     /** @var  string */
     protected $country;
-    /** @var  \DateTime */
+    /** @var  Date */
     protected $date;
 
     /**
@@ -19,9 +19,9 @@ class ReleaseEvent
     }
 
     /**
-     * @return \DateTime
+     * @return Date
      */
-    public function getDate(): \DateTime
+    public function getDate(): Date
     {
         return $this->date;
     }
@@ -35,9 +35,9 @@ class ReleaseEvent
     }
 
     /**
-     * @param \DateTime $date
+     * @param Date $date
      */
-    public function setDate(\DateTime $date): void
+    public function setDate(Date $date): void
     {
         $this->date = $date;
     }

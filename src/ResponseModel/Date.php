@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nicki
- * Date: 15.01.18
- * Time: 14:49
- */
 
 namespace AcoustidApi\ResponseModel;
-
 
 use DateTime;
 

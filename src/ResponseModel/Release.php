@@ -16,7 +16,7 @@ class Release
     protected $releaseEvents = [];
     /** @var  string */
     protected $country;
-    /** @var  \DateTime */
+    /** @var  Date */
     protected $date;
     /** @var  Medium[] */
     protected $mediums = [];
@@ -70,9 +70,9 @@ class Release
     }
 
     /**
-     * @return \DateTime
+     * @return Date
      */
-    public function getDate(): \DateTime
+    public function getDate(): Date
     {
         return $this->date;
     }
@@ -142,9 +142,9 @@ class Release
     }
 
     /**
-     * @param \DateTime $date
+     * @param Date $date
      */
-    public function setDate(\DateTime $date): void
+    public function setDate(Date $date): void
     {
         $this->date = $date;
     }
