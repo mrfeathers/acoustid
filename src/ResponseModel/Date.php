@@ -1,0 +1,78 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: nicki
+ * Date: 15.01.18
+ * Time: 14:49
+ */
+
+namespace AcoustidApi\ResponseModel;
+
+
+use DateTime;
+
+class Date
+{
+    /** @var int */
+    private $day;
+    /** @var int */
+    private $month;
+    /** @var int */
+    private $year;
+
+    /**
+     * @return int
+     */
+    public function getDay(): int
+    {
+        return $this->day;
+    }
+
+    /**
+     * @param int $day
+     */
+    public function setDay(int $day): void
+    {
+        $this->day = $day;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMonth(): int
+    {
+        return $this->month;
+    }
+
+    /**
+     * @param int $month
+     */
+    public function setMonth(int $month): void
+    {
+        $this->month = $month;
+    }
+
+    /**
+     * @return int
+     */
+    public function getYear(): int
+    {
+        return $this->year;
+    }
+
+    /**
+     * @param int $year
+     */
+    public function setYear(int $year): void
+    {
+        $this->year = $year;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function toDateTime(): DateTime
+    {
+        return new DateTime("{$this->day}-{$this->month}-{$this->year}");
+    }
+}
