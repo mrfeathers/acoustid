@@ -43,16 +43,6 @@ class AcoustidClient
     }
 
     /**
-     * @throws AcoustidException
-     */
-    private function checkApiKey(): void
-    {
-        if (!$this->isApiKeySet()) {
-            throw new AcoustidException('You need to set api key to use this method');
-        }
-    }
-
-    /**
      * @param string $apiKey
      *
      * @return AcoustidClient
@@ -61,6 +51,16 @@ class AcoustidClient
     {
         $this->apiKey = $apiKey;
         return $this;
+    }
+
+    /**
+     * @throws AcoustidException
+     */
+    private function checkApiKey(): void
+    {
+        if (!$this->isApiKeySet()) {
+            throw new AcoustidException('You need to set api key to use this method');
+        }
     }
 
     /**
