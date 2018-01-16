@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use AcoustidApi\AcoustidFactory;
 use AcoustidApi\Exceptions\AcoustidException;
 use AcoustidApi\ResponseModel\Collection\ResultCollection;
 use AcoustidApi\ResponseModel\Collection\SubmissionCollection;
@@ -23,7 +24,7 @@ class ResponseProcessorTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->responseProcessor = new ResponseProcessor();
+        $this->responseProcessor = AcoustidFactory::createResponseProcessor();
     }
 
     /**

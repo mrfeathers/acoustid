@@ -3,18 +3,9 @@
 namespace AcoustidApi;
 
 use AcoustidApi\Exceptions\AcoustidException;
-use AcoustidApi\RequestModel\FingerPrintCollectionNormalizer;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
-use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
-use Symfony\Component\Serializer\{
-    Encoder\JsonEncoder,
-    Normalizer\ArrayDenormalizer,
-    Normalizer\DateTimeNormalizer,
-    Normalizer\ObjectNormalizer,
-    Serializer,
-    SerializerInterface
-};
+use Symfony\Component\Serializer\SerializerInterface;
 
 class ResponseProcessor
 {
@@ -23,18 +14,12 @@ class ResponseProcessor
 
     /**
      * ResponseProcessor constructor.
+     *
+     * @param SerializerInterface $serializer
      */
-    public function __construct()
+    public function __construct(SerializerInterface $serializer)
     {
-        $normalizers = [
-            new ObjectNormalizer(
-                null, null, null, new ReflectionExtractor()
-            ),
-            new ArrayDenormalizer(),
-            new DateTimeNormalizer(),
-            new FingerPrintCollectionNormalizer(),
-        ];
-        $this->serializer = new Serializer($normalizers, [new JsonEncoder()]);
+        $this->serializer = $serializer;
     }
 
     /**

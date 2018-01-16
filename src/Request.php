@@ -9,10 +9,9 @@ use Psr\Http\Message\ResponseInterface;
 
 class Request
 {
-    const BASE_URI = 'http://api.acoustid.org/v2/';
     const ACCEPT = 'application/json';
 
-    /** @var null|string  */
+    /** @var string  */
     protected $apiKey = null;
     /**
      * @var array
@@ -32,21 +31,33 @@ class Request
     /**
      * Request constructor.
      *
-     * @param null|string $apiKey
+     * @param Client $guzzleClient
+     * @param string $apiKey
      */
-    public function __construct(?string $apiKey = null)
+    public function __construct(Client $guzzleClient, string $apiKey = '')
     {
-        $this->apiKey = $apiKey;
-        $this->guzzleClient = new Client(['base_uri' => self::BASE_URI]);
+        $this->guzzleClient = $guzzleClient;
+        if (!empty($apiKey)) {
+            $this->addParameter('client', $apiKey);
+        }
         $this->options[RequestOptions::HEADERS]['Accept'] = self::ACCEPT;
     }
 
     /**
-     * @return Client
+     * @param string $name
+     * @param mixed|null $default
+     *
+     * @return mixed
      */
-    protected function getClient(): Client
+    public function getParameter(string $name, $default = null)
     {
-        return $this->guzzleClient;
+        foreach ($this->parameters as $parameter) {
+            if ($parameter['name'] == $name) {
+                return $parameter['value'];
+            }
+        }
+
+        return $default;
     }
 
     /**
@@ -83,7 +94,6 @@ class Request
      */
     private function getQueryString(): string
     {
-        $this->apiKey && $this->addParameter('client', $this->apiKey);
         return implode('&', array_map(function ($item) {
             return $item['name'] . '=' . $item['value'];
         }, $this->parameters));
@@ -97,7 +107,7 @@ class Request
      */
     public function sendGet(string $uri): ResponseInterface
     {
-        return $this->getClient()->get($uri, array_merge([RequestOptions::QUERY => $this->getQueryString()], $this->options));
+        return $this->guzzleClient->get($uri, array_merge([RequestOptions::QUERY => $this->getQueryString()], $this->options));
     }
 
     /**
@@ -113,7 +123,7 @@ class Request
 
         $body = $compressor->compress($this->getQueryString());
 
-        return $this->getClient()->post($uri, array_merge(
+        return $this->guzzleClient->post($uri, array_merge(
             [RequestOptions::BODY => $body], $this->options
         ));
     }

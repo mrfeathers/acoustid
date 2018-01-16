@@ -4,9 +4,7 @@ namespace AcoustidApi;
 
 use AcoustidApi\DataCompressor\GzipCompressor;
 use AcoustidApi\Exceptions\AcoustidException;
-use AcoustidApi\RequestModel\{
-    FingerPrint, FingerPrintCollection, FingerPrintCollectionNormalizer
-};
+use AcoustidApi\RequestModel\{FingerPrint, FingerPrintCollection, FingerPrintCollectionNormalizer};
 use AcoustidApi\ResponseModel\Collection\{CollectionModel, MBIdCollection, SubmissionCollection, TrackCollection};
 use AcoustidApi\ResponseModel\Collection\ResultCollection;
 use Symfony\Component\Serializer\Serializer;
@@ -15,21 +13,33 @@ class AcoustidClient
 {
     const FORMAT = 'json';
 
-    /** @var null|string */
+    /** @var string */
     private $apiKey;
-
     /** @var ResponseProcessor */
     private $responseProcessor;
+    /** @var RequestFactory  */
+    private $requestFactory;
 
     /**
      * AcoustidClient constructor.
      *
+     * @param RequestFactory $requestFactory
+     * @param ResponseProcessor $responseProcessor
      * @param null|string $apiKey
      */
-    public function __construct(?string $apiKey = null)
+    public function __construct(RequestFactory $requestFactory, ResponseProcessor $responseProcessor, string $apiKey = '')
     {
         $this->apiKey = $apiKey;
-        $this->responseProcessor = new ResponseProcessor();
+        $this->responseProcessor = $responseProcessor;
+        $this->requestFactory = $requestFactory;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isApiKeySet(): bool
+    {
+        return !empty($this->apiKey);
     }
 
     /**
@@ -37,26 +47,20 @@ class AcoustidClient
      */
     private function checkApiKey(): void
     {
-        if ($this->apiKey === null) {
+        if (!$this->isApiKeySet()) {
             throw new AcoustidException('You need to set api key to use this method');
         }
     }
 
     /**
-     * @return Request
-     */
-    protected function createRequest(): Request
-    {
-        return new Request($this->apiKey);
-    }
-
-
-    /**
      * @param string $apiKey
+     *
+     * @return AcoustidClient
      */
-    public function setApiKey(string $apiKey): void
+    public function setApiKey(string $apiKey): AcoustidClient
     {
         $this->apiKey = $apiKey;
+        return $this;
     }
 
     /**
@@ -69,7 +73,7 @@ class AcoustidClient
     public function lookupByFingerPrint(FingerPrint $fingerPrint, array $meta = []): ResultCollection
     {
         $this->checkApiKey();
-        $response = $this->createRequest()
+        $response = $this->requestFactory->create($this->apiKey)
             ->addParameters([
                     'fingerprint' => $fingerPrint->getFingerprint(),
                     'duration' => $fingerPrint->getDuration(),
@@ -91,7 +95,7 @@ class AcoustidClient
     public function lookupByTrackId(string $trackId, array $meta = []): ResultCollection
     {
         $this->checkApiKey();
-        $response = $this->createRequest()
+        $response = $this->requestFactory->create($this->apiKey)
             ->addParameters([
                     'trackid' => $trackId,
                     'meta' => $meta,
@@ -117,7 +121,7 @@ class AcoustidClient
 
         $serializer = new Serializer([new FingerPrintCollectionNormalizer()]);
         $normalizedFingerPrints = $serializer->normalize($fingerPrints);
-        $response = $this->createRequest()
+        $response = $this->requestFactory->create($this->apiKey)
             ->addParameters([
                 'user' => $userApiKey,
                 'clientversion' => $clientVersion,
@@ -139,7 +143,7 @@ class AcoustidClient
     public function getSubmissionStatus(int $submissionId, string $clientVersion = '1.0'): SubmissionCollection
     {
         $this->checkApiKey();
-        $response = $this->createRequest()
+        $response = $this->requestFactory->create($this->apiKey)
             ->addParameters([
                 'id' => $submissionId,
                 'clientversion' => $clientVersion,
@@ -159,7 +163,7 @@ class AcoustidClient
     public function listByMBId(array $mbids): CollectionModel
     {
         $batch = count($mbids) > 1;
-        $request = $this->createRequest()
+        $request = $this->requestFactory->create($this->apiKey)
             ->addParameter('batch', $batch);
 
         foreach ($mbids as $mbid) {

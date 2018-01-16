@@ -34,7 +34,7 @@ class RequestTest extends TestCase
                     $params['meta'][1],
                     $params['format']
                 ),
-                null
+                ''
             ],
             [
                 $params = [
@@ -46,12 +46,13 @@ class RequestTest extends TestCase
                     'format' => 'json',
                 ],
                 sprintf(
-                    "trackid=%s&meta=%s+%s&format=%s&client=%s",
+                    "client=%s&trackid=%s&meta=%s+%s&format=%s",
+                    $apiKey = 'apikey',
                     $params['trackid'],
                     $params['meta'][0],
                     $params['meta'][1],
-                    $params['format'],
-                    $apiKey = 'apikey'
+                    $params['format']
+
                 ),
                 $apiKey
             ]
@@ -76,11 +77,11 @@ class RequestTest extends TestCase
         ];
         $client = $this->createHttpClient('get', [$action, $expectedOptions]);
 
-        $request = $this->createRequestWithClient($client, $apiKey);
+        $request = new Request($client, $apiKey);
         $request->addParameters($params);
         $response = $request->sendGet($action);
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertInstanceOf(ResponseInterface::class, $response, 'Must return object implements ResponseInterface');
     }
 
     /**
@@ -105,11 +106,11 @@ class RequestTest extends TestCase
         ];
         $client = $this->createHttpClient('post', [$action, $expectedOptions]);
 
-        $request = $this->createRequestWithClient($client, $apiKey);
+        $request = new Request($client, $apiKey);
         $request->addParameters($params);
         $response = $request->sendCompressedPost($compressor, $action);
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertInstanceOf(ResponseInterface::class, $response, 'Must return object implements ResponseInterface');
     }
 
 
@@ -129,20 +130,5 @@ class RequestTest extends TestCase
             ->andReturn(Mockery::mock(ResponseInterface::class));
 
         return $client;
-    }
-
-    /**
-     * @param $client
-     *
-     * @param null $apiKey
-     *
-     * @return MockInterface
-     */
-    private function createRequestWithClient($client, $apiKey): MockInterface
-    {
-        $request = Mockery::mock(Request::class, [$apiKey])->makePartial()->shouldAllowMockingProtectedMethods();
-        $request->shouldReceive('getClient')->andReturn($client);
-
-        return $request;
     }
 }

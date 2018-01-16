@@ -1,4 +1,5 @@
 # AcoustId API Wrapper
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
 This package is an object oriented PHP wrapper for [acoustid.org API](https://acoustid.org/webservice).
 
@@ -14,7 +15,7 @@ composer require mrfeathers/acoustid
 Create an instance of `AcoustIdClient`:
 ```php
 $apiKey = 'here is your api key';
-$acoustidClient = new AcoustIdClient($apiKey);
+$acoustidClient = AcoustidFactory::create($apiKey);
 ```
 >Also, you can create client without api key. In this case, you are able to use `listByMBId` method, that
 doesn't need api key. All other methods throws an exception in this case.
