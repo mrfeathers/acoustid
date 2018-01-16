@@ -151,19 +151,19 @@ class AcoustidClient
     }
 
     /**
-     * @param array $mdids
+     * @param array $mbids
      *
      * @return CollectionModel
      * @throws AcoustidException
      */
-    public function listByMBId(array $mdids): CollectionModel
+    public function listByMBId(array $mbids): CollectionModel
     {
-        $batch = count($mdids) > 1;
+        $batch = count($mbids) > 1;
         $request = $this->createRequest()
             ->addParameter('batch', $batch);
 
-        foreach ($mdids as $mdid) {
-            $request->addParameter('mbid', $mdid);
+        foreach ($mbids as $mbid) {
+            $request->addParameter('mbid', $mbid);
         }
 
         $response = $request->sendGet(Actions::TRACKLIST_BY_MBID);
