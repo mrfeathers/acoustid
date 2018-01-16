@@ -9,7 +9,6 @@ use AcoustidApi\RequestModel\{
 };
 use AcoustidApi\ResponseModel\Collection\{CollectionModel, MBIdCollection, SubmissionCollection, TrackCollection};
 use AcoustidApi\ResponseModel\Collection\ResultCollection;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Serializer;
 
 class AcoustidClient
@@ -112,7 +111,7 @@ class AcoustidClient
      * @return SubmissionCollection
      * @throws AcoustidException
      */
-    public function submit(FingerPrintCollection $fingerPrints, string $userApiKey, string $clientVersion = '1.0', int $wait = 1): SubmissionCollection
+    public function submit(FingerPrintCollection $fingerPrints, string $userApiKey, int $wait = 1, string $clientVersion = '1.0'): SubmissionCollection
     {
         $this->checkApiKey();
 
@@ -152,20 +151,22 @@ class AcoustidClient
     }
 
     /**
-     * @param string $mdid
-     * @param bool $batch
+     * @param array $mdids
      *
      * @return CollectionModel
      * @throws AcoustidException
      */
-    public function listByMBID(string $mdid, bool $batch = false): CollectionModel
+    public function listByMBId(array $mdids): CollectionModel
     {
-        $response = $this->createRequest()
-            ->addParameters([
-                'mbid' => $mdid,
-                'batch' => (int)$batch,
-            ])->sendGet(Actions::TRACKLIST_BY_MBID);
+        $batch = count($mdids) > 1;
+        $request = $this->createRequest()
+            ->addParameter('batch', $batch);
 
+        foreach ($mdids as $mdid) {
+            $request->addParameter('mbid', $mdid);
+        }
+
+        $response = $request->sendGet(Actions::TRACKLIST_BY_MBID);
         $resultType = $batch ? MBIdCollection::class : TrackCollection::class;
 
         return $this->responseProcessor->process($response, $resultType, self::FORMAT);
