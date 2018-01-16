@@ -1,0 +1,38 @@
+## FingerPrint
+
+- `fingerprint` - audio fingerprint data. Required.
+    - getFingerPrint(): string
+    - setFingerPrint(string $fingerPrint): FingerPrint
+- `duration` - duration of the whole audio file in seconds. Required.
+    - getDuration(): int
+    - setDuration(int $duration): FingerPrint
+- `birate` - bitrate of the audio file
+    - getBirate(): int    
+    - setBirate(int $birate): FingerPrint
+- `fileformat` - file format of the audio file
+    - getBirate(): int    
+    - setBirate(int $birate): FingerPrint
+- `mbid` - corresponding MusicBrainz recording ID
+    - getMbid(): string
+    - setMbid(string $mbid): FingerPrint
+- `track` - track title
+    - getTrack(): string    
+    - setTrack(string $track): FingerPrint
+- `artist` - track artist
+    - getArtist(): string    
+    - setArtist(string $artist): FingerPrint
+- `album` - album title    
+    - getAlbum(): string    
+    - setAlbum(string $album): FingerPrint
+- `albumartist` - album artist
+    - getAlbumartist(): string    
+    - setAlbumartist(string $albumartist): FingerPrint
+- `year` - album release year
+    - getYear(): int    
+    - setYear(int $year): FingerPrint
+- `trackno` - track number
+    - getTrackno(): int    
+    - setTrackno(int $trackno): FingerPrint
+- `discno` - disc number
+    - getDiscno(): int    
+    - setDiscno(int $discno): FingerPrint  
