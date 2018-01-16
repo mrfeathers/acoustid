@@ -164,7 +164,7 @@ class AcoustidClient
     {
         $batch = count($mbids) > 1;
         $request = $this->requestFactory->create($this->apiKey)
-            ->addParameter('batch', $batch);
+            ->addParameter('batch', (int) $batch);
 
         foreach ($mbids as $mbid) {
             $request->addParameter('mbid', $mbid);
