@@ -1,13 +1,11 @@
 <?php
 
-namespace AcoustidApi;
+namespace AcoustidApi\Request;
 
-use AcoustidApi\DataCompressor\DataCompressorInterface;
-use GuzzleHttp\Client;
-use GuzzleHttp\RequestOptions;
-use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\RequestInterface;
+use \GuzzleHttp\Psr7\Request as PsrRequest;
 
-class Request
+abstract class Request
 {
     const ACCEPT = 'application/json';
 
@@ -18,29 +16,22 @@ class Request
      */
     protected $parameters = [];
 
-    /**
-     * @var array
-     */
-    protected $options = [];
-
-    /**
-     * @var Client
-     */
-    protected $guzzleClient;
+    /** @var RequestInterface  */
+    protected $request;
 
     /**
      * Request constructor.
      *
-     * @param Client $guzzleClient
+     * @param $method
+     * @param $uri
      * @param string $apiKey
      */
-    public function __construct(Client $guzzleClient, string $apiKey = '')
+    public function __construct($method, $uri, string $apiKey = '')
     {
-        $this->guzzleClient = $guzzleClient;
+        $this->request = new PsrRequest($method, $uri, ['Accept' => self::ACCEPT]);
         if (!empty($apiKey)) {
             $this->addParameter('client', $apiKey);
         }
-        $this->options[RequestOptions::HEADERS]['Accept'] = self::ACCEPT;
     }
 
     /**
@@ -88,43 +79,30 @@ class Request
         return $this;
     }
 
-
     /**
      * @return string
      */
-    private function getQueryString(): string
+    protected function getQueryString(): string
     {
         return implode('&', array_map(function ($item) {
             return $item['name'] . '=' . $item['value'];
         }, $this->parameters));
     }
 
-
     /**
-     * @param string $uri
+     * @param string $name
+     * @param string $value
      *
-     * @return ResponseInterface
+     * @return Request
      */
-    public function sendGet(string $uri): ResponseInterface
+    protected function addHeader(string $name, string $value): Request
     {
-        return $this->guzzleClient->get($uri, array_merge([RequestOptions::QUERY => $this->getQueryString()], $this->options));
+        $this->request = $this->request->withHeader($name, $value);
+        return $this;
     }
 
     /**
-     * @param DataCompressorInterface $compressor
-     * @param string $uri
-     *
-     * @return ResponseInterface
+     * @return RequestInterface
      */
-    public function sendCompressedPost(DataCompressorInterface $compressor, string $uri): ResponseInterface
-    {
-        $this->options[RequestOptions::HEADERS]['Content-Encoding'] = $compressor->getFormat();
-        $this->options[RequestOptions::HEADERS]['Content-Type'] = 'application/x-www-form-urlencoded';
-
-        $body = $compressor->compress($this->getQueryString());
-
-        return $this->guzzleClient->post($uri, array_merge(
-            [RequestOptions::BODY => $body], $this->options
-        ));
-    }
+    abstract public function build(): RequestInterface;
 }

@@ -2,6 +2,10 @@
 
 namespace AcoustidApi;
 
+use AcoustidApi\DataCompressor\GzipCompressor;
+use AcoustidApi\Request\RequestFactory;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\Serializer\{
     Encoder\JsonEncoder,
@@ -9,10 +13,13 @@ use Symfony\Component\Serializer\{
     Normalizer\ObjectNormalizer,
     Serializer
 };
-use AcoustidApi\RequestModel\FingerPrintCollectionNormalizer;
+use AcoustidApi\FingerPrint\FingerPrintCollectionNormalizer;
 
 class AcoustidFactory
 {
+
+    private const BASE_URI = 'http://api.acoustid.org/v2/';
+
     /**
      * @param string $apiKey
      *
@@ -21,18 +28,20 @@ class AcoustidFactory
     public static function create(string $apiKey = ''): AcoustidClient
     {
         return new AcoustidClient(
-            self::createRequestFactory(),
+            new RequestFactory(),
             self::createResponseProcessor(),
+            self::createHttpClient(),
+            new GzipCompressor(),
             $apiKey
         );
     }
 
     /**
-     * @return RequestFactory
+     * @return ClientInterface
      */
-    public static function createRequestFactory(): RequestFactory
+    public static function createHttpClient(): ClientInterface
     {
-        return new RequestFactory();
+        return new Client(['base_uri' => self::BASE_URI]);
     }
 
     /**

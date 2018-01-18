@@ -1,6 +1,6 @@
 <?php
 
-namespace AcoustidApi\RequestModel;
+namespace AcoustidApi\FingerPrint;
 
 use Traversable;
 

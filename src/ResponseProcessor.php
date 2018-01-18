@@ -2,7 +2,9 @@
 
 namespace AcoustidApi;
 
+use AcoustidApi\Exceptions\AcoustidApiException;
 use AcoustidApi\Exceptions\AcoustidException;
+use AcoustidApi\Exceptions\AcoustidSerializerException;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -33,7 +35,7 @@ class ResponseProcessor
     public function process(ResponseInterface $response, string $resultType, string $responseFormat)
     {
         if ($response->getStatusCode() != 200) {
-            throw new AcoustidException($response->getReasonPhrase());
+            throw new AcoustidApiException(null, $response->getReasonPhrase());
         }
 
         $content = $response->getBody()->getContents();
@@ -41,7 +43,7 @@ class ResponseProcessor
         try {
             return $this->serializer->deserialize($content, $resultType, $responseFormat);
         } catch (Exception $exception) {
-            throw new AcoustidException('Can`t deserialize response', 0, $exception);
+            throw new AcoustidSerializerException($exception);
         }
     }
 }

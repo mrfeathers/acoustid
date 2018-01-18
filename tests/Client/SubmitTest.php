@@ -4,8 +4,8 @@ namespace Tests\Client;
 
 
 use AcoustidApi\Exceptions\AcoustidException;
-use AcoustidApi\RequestModel\FingerPrint;
-use AcoustidApi\RequestModel\FingerPrintCollection;
+use AcoustidApi\FingerPrint\FingerPrint;
+use AcoustidApi\FingerPrint\FingerPrintCollection;
 use AcoustidApi\ResponseModel\Collection\SubmissionCollection;
 use GuzzleHttp\Psr7\Response;
 use Tests\Sample\ResponseData;

@@ -3,7 +3,9 @@
 namespace Tests;
 
 use AcoustidApi\AcoustidFactory;
+use AcoustidApi\Exceptions\AcoustidApiException;
 use AcoustidApi\Exceptions\AcoustidException;
+use AcoustidApi\Exceptions\AcoustidSerializerException;
 use AcoustidApi\ResponseModel\Collection\ResultCollection;
 use AcoustidApi\ResponseModel\Collection\SubmissionCollection;
 use AcoustidApi\ResponseProcessor;
@@ -38,7 +40,7 @@ class ResponseProcessorTest extends TestCase
             ->once()
             ->andReturn($reasonPhrase);
 
-        $this->expectException(AcoustidException::class);
+        $this->expectException(AcoustidApiException::class);
         $this->expectExceptionMessage($reasonPhrase);
 
         $this->responseProcessor->process($response, SubmissionCollection::class, 'json');
@@ -62,7 +64,7 @@ class ResponseProcessorTest extends TestCase
     {
         $response = $this->createResponseMock(200, $content);
 
-        $this->expectException(AcoustidException::class);
+        $this->expectException(AcoustidSerializerException::class);
 
         $this->responseProcessor->process($response, $resultType, $format);
     }

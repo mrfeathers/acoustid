@@ -2,11 +2,15 @@
 
 namespace AcoustidApi;
 
-use AcoustidApi\DataCompressor\GzipCompressor;
-use AcoustidApi\Exceptions\AcoustidException;
-use AcoustidApi\RequestModel\{FingerPrint, FingerPrintCollection, FingerPrintCollectionNormalizer};
+use AcoustidApi\DataCompressor\DataCompressorInterface;
+use AcoustidApi\Exceptions\{AcoustidApiException, AcoustidException};
+use AcoustidApi\FingerPrint\{FingerPrint, FingerPrintCollection, FingerPrintCollectionNormalizer};
+use AcoustidApi\Request\{Request, RequestFactory};
 use AcoustidApi\ResponseModel\Collection\{CollectionModel, MBIdCollection, SubmissionCollection, TrackCollection};
 use AcoustidApi\ResponseModel\Collection\ResultCollection;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\Serializer;
 
 class AcoustidClient
@@ -17,21 +21,34 @@ class AcoustidClient
     private $apiKey;
     /** @var ResponseProcessor */
     private $responseProcessor;
-    /** @var RequestFactory  */
+    /** @var RequestFactory */
     private $requestFactory;
+    /** @var ClientInterface */
+    private $httpClient;
+    /** @var DataCompressorInterface */
+    private $compressor;
 
     /**
      * AcoustidClient constructor.
      *
      * @param RequestFactory $requestFactory
      * @param ResponseProcessor $responseProcessor
+     * @param ClientInterface $httpClient
+     * @param DataCompressorInterface $compressor
      * @param null|string $apiKey
      */
-    public function __construct(RequestFactory $requestFactory, ResponseProcessor $responseProcessor, string $apiKey = '')
+    public function __construct(
+        RequestFactory $requestFactory,
+        ResponseProcessor $responseProcessor,
+        ClientInterface $httpClient,
+        DataCompressorInterface $compressor,
+        string $apiKey = '')
     {
         $this->apiKey = $apiKey;
         $this->responseProcessor = $responseProcessor;
         $this->requestFactory = $requestFactory;
+        $this->httpClient = $httpClient;
+        $this->compressor = $compressor;
     }
 
     /**
@@ -50,6 +67,7 @@ class AcoustidClient
     public function setApiKey(string $apiKey): AcoustidClient
     {
         $this->apiKey = $apiKey;
+
         return $this;
     }
 
@@ -73,17 +91,19 @@ class AcoustidClient
     public function lookupByFingerPrint(FingerPrint $fingerPrint, array $meta = []): ResultCollection
     {
         $this->checkApiKey();
-        $response = $this->requestFactory->create($this->apiKey)
+
+        $request = $this->requestFactory->createCompressedPostRequest($this->compressor, Actions::LOOKUP, $this->apiKey)
             ->addParameters([
                     'fingerprint' => $fingerPrint->getFingerprint(),
                     'duration' => $fingerPrint->getDuration(),
                     'meta' => $meta,
                     'format' => self::FORMAT,
                 ]
-            )->sendCompressedPost(new GzipCompressor(), Actions::LOOKUP);
+            );
 
-        return $this->responseProcessor->process($response, ResultCollection::class, self::FORMAT);
+        return $this->responseProcessor->process($this->sendRequest($request), ResultCollection::class, self::FORMAT);
     }
+
 
     /**
      * @param string $trackId
@@ -95,15 +115,16 @@ class AcoustidClient
     public function lookupByTrackId(string $trackId, array $meta = []): ResultCollection
     {
         $this->checkApiKey();
-        $response = $this->requestFactory->create($this->apiKey)
+
+        $request = $this->requestFactory->createGetRequest(Actions::LOOKUP, $this->apiKey)
             ->addParameters([
                     'trackid' => $trackId,
                     'meta' => $meta,
                     'format' => self::FORMAT,
                 ]
-            )->sendGet(Actions::LOOKUP);
+            );
 
-        return $this->responseProcessor->process($response, ResultCollection::class, self::FORMAT);
+        return $this->responseProcessor->process($this->sendRequest($request), ResultCollection::class, self::FORMAT);
     }
 
     /**
@@ -121,16 +142,16 @@ class AcoustidClient
 
         $serializer = new Serializer([new FingerPrintCollectionNormalizer()]);
         $normalizedFingerPrints = $serializer->normalize($fingerPrints);
-        $response = $this->requestFactory->create($this->apiKey)
+
+        $request = $this->requestFactory->createCompressedPostRequest($this->compressor,Actions::SUBMIT, $this->apiKey)
             ->addParameters([
                 'user' => $userApiKey,
                 'clientversion' => $clientVersion,
                 'wait' => $wait,
             ])
-            ->addParameters($normalizedFingerPrints)
-            ->sendCompressedPost(new GzipCompressor(), Actions::SUBMIT);
+            ->addParameters($normalizedFingerPrints);
 
-        return $this->responseProcessor->process($response, SubmissionCollection::class, self::FORMAT);
+        return $this->responseProcessor->process($this->sendRequest($request), SubmissionCollection::class, self::FORMAT);
     }
 
     /**
@@ -143,15 +164,15 @@ class AcoustidClient
     public function getSubmissionStatus(int $submissionId, string $clientVersion = '1.0'): SubmissionCollection
     {
         $this->checkApiKey();
-        $response = $this->requestFactory->create($this->apiKey)
+
+        $request = $this->requestFactory->createGetRequest(Actions::SUBMISSION_STATUS, $this->apiKey)
             ->addParameters([
                 'id' => $submissionId,
                 'clientversion' => $clientVersion,
-                'format' => self::FORMAT
-            ])
-            ->sendGet(Actions::SUBMISSION_STATUS);
+                'format' => self::FORMAT,
+            ]);
 
-        return $this->responseProcessor->process($response, SubmissionCollection::class, self::FORMAT);
+        return $this->responseProcessor->process($this->sendRequest($request), SubmissionCollection::class, self::FORMAT);
     }
 
     /**
@@ -163,17 +184,30 @@ class AcoustidClient
     public function listByMBId(array $mbids): CollectionModel
     {
         $batch = count($mbids) > 1;
-        $request = $this->requestFactory->create($this->apiKey)
-            ->addParameter('batch', (int) $batch);
+        $request = $this->requestFactory->createGetRequest(Actions::TRACKLIST_BY_MBID, $this->apiKey)
+            ->addParameter('batch', (int)$batch);
 
         foreach ($mbids as $mbid) {
             $request->addParameter('mbid', $mbid);
         }
 
-        $response = $request->sendGet(Actions::TRACKLIST_BY_MBID);
         $resultType = $batch ? MBIdCollection::class : TrackCollection::class;
 
-        return $this->responseProcessor->process($response, $resultType, self::FORMAT);
+        return $this->responseProcessor->process($this->sendRequest($request), $resultType, self::FORMAT);
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return ResponseInterface
+     * @throws AcoustidException
+     */
+    private function sendRequest(Request $request): ResponseInterface
+    {
+        try {
+            return $this->httpClient->send($request->build());
+        } catch (GuzzleException $exception) {
+            throw new AcoustidApiException($exception);
+        }
+    }
 }

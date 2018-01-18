@@ -66,6 +66,6 @@ class Date
      */
     public function toDateTime(): DateTime
     {
-        return new DateTime("{$this->day}-{$this->month}-{$this->year}");
+        return new DateTime("{$this->day}-{$this->month}-{$this->year} 00:00:00");
     }
 }

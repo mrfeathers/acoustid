@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\RequestModel;
+namespace Tests\FingerPrint;
 
 
-use AcoustidApi\RequestModel\FingerPrint;
-use AcoustidApi\RequestModel\FingerPrintCollection;
-use AcoustidApi\RequestModel\FingerPrintCollectionNormalizer;
+use AcoustidApi\FingerPrint\FingerPrint;
+use AcoustidApi\FingerPrint\FingerPrintCollection;
+use AcoustidApi\FingerPrint\FingerPrintCollectionNormalizer;
 use PHPUnit\Framework\TestCase;
 
 class FingerPrintCollectionNormalizerTest extends TestCase
