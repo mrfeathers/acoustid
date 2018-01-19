@@ -1,4 +1,5 @@
 # AcoustId API Wrapper
+[![Build Status](https://travis-ci.org/mrfeathers/acoustid.svg?branch=master)](https://travis-ci.org/mrfeathers/acoustid)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
 This package is an object oriented PHP wrapper for [acoustid.org API](https://acoustid.org/webservice).
