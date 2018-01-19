@@ -1,6 +1,6 @@
 <?php
 
-namespace AcoustidApi\Exceptions;
+namespace AcoustidApi\Exception;
 
 use Throwable;
 

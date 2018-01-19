@@ -3,7 +3,7 @@
 namespace AcoustidApi;
 
 use AcoustidApi\DataCompressor\DataCompressorInterface;
-use AcoustidApi\Exceptions\{AcoustidApiException, AcoustidException};
+use AcoustidApi\Exception\{AcoustidApiException, AcoustidException};
 use AcoustidApi\FingerPrint\{FingerPrint, FingerPrintCollection, FingerPrintCollectionNormalizer};
 use AcoustidApi\Request\{Request, RequestFactory};
 use AcoustidApi\ResponseModel\Collection\{CollectionModel, MBIdCollection, SubmissionCollection, TrackCollection};

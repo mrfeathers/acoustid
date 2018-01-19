@@ -2,7 +2,7 @@
 
 namespace Tests\Client;
 
-use AcoustidApi\Exceptions\AcoustidException;
+use AcoustidApi\Exception\AcoustidException;
 use AcoustidApi\FingerPrint\FingerPrint;
 use AcoustidApi\ResponseModel\Collection\ResultCollection;
 use GuzzleHttp\Psr7\Response;

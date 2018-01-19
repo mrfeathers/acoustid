@@ -2,9 +2,9 @@
 
 namespace AcoustidApi;
 
-use AcoustidApi\Exceptions\AcoustidApiException;
-use AcoustidApi\Exceptions\AcoustidException;
-use AcoustidApi\Exceptions\AcoustidSerializerException;
+use AcoustidApi\Exception\AcoustidApiException;
+use AcoustidApi\Exception\AcoustidException;
+use AcoustidApi\Exception\AcoustidSerializerException;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\SerializerInterface;

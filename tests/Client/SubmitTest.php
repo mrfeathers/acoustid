@@ -3,7 +3,7 @@
 namespace Tests\Client;
 
 
-use AcoustidApi\Exceptions\AcoustidException;
+use AcoustidApi\Exception\AcoustidException;
 use AcoustidApi\FingerPrint\FingerPrint;
 use AcoustidApi\FingerPrint\FingerPrintCollection;
 use AcoustidApi\ResponseModel\Collection\SubmissionCollection;

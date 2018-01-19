@@ -3,9 +3,9 @@
 namespace Tests;
 
 use AcoustidApi\AcoustidFactory;
-use AcoustidApi\Exceptions\AcoustidApiException;
-use AcoustidApi\Exceptions\AcoustidException;
-use AcoustidApi\Exceptions\AcoustidSerializerException;
+use AcoustidApi\Exception\AcoustidApiException;
+use AcoustidApi\Exception\AcoustidException;
+use AcoustidApi\Exception\AcoustidSerializerException;
 use AcoustidApi\ResponseModel\Collection\ResultCollection;
 use AcoustidApi\ResponseModel\Collection\SubmissionCollection;
 use AcoustidApi\ResponseProcessor;

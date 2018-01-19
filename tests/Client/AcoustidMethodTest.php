@@ -6,7 +6,7 @@ use AcoustidApi\AcoustidClient;
 use AcoustidApi\AcoustidFactory;
 use AcoustidApi\DataCompressor\DataCompressorInterface;
 use AcoustidApi\DataCompressor\GzipCompressor;
-use AcoustidApi\Exceptions\AcoustidApiException;
+use AcoustidApi\Exception\AcoustidApiException;
 use AcoustidApi\FingerPrint\FingerPrint;
 use AcoustidApi\FingerPrint\FingerPrintCollection;
 use AcoustidApi\Request\RequestFactory;

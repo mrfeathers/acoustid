@@ -2,10 +2,22 @@
         convertErrorsToExceptions="true"
         convertNoticesToExceptions="true"
         convertWarningsToExceptions="true"
+        colors="true"
         bootstrap="vendor/autoload.php">
     <testsuites>
         <testsuite name="base">
-            <directory>tests</directory>
+            <directory>tests/</directory>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./src/</directory>
+            <exclude>
+                <directory suffix=".php">src/Exception/</directory>
+                <file>./src/DataCompressor/DataCompressorInterface.php</file>
+                <file>./src/Meta.php</file>
+                <file>./src/Actions.php</file>
+            </exclude>
+        </whitelist>
+    </filter>
 </phpunit>
