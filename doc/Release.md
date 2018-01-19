@@ -1,0 +1,26 @@
+## Release
+
+- `id`
+    - setId(string $id): void
+    - getId(): string
+- `title`
+    - setTitle(string $title): void
+    - getTitle(): string
+- `trackCount`
+    - setTrackCount(int $trackCount): void
+    - getTrackCount(): int
+- `mediumCount`
+    - setMediumCount(int $mediumCount): void
+    - getMediumCount(): int
+- `releaseEvents`
+    - setReleaseEvents(array $releaseEvents): void
+    - getReleaseEvents(): array - array of [ReleaseEvent](ReleaseEvent.md) objects
+- `country`
+    - setCountry(string $country): void
+    - getCountry(): string
+- `date`
+    - setDate([Date](Date.md) $date): void
+    - getDate(): [Date](Date.md
+- `mediums`
+    - setMediums(array $mediums): void
+    - getMediums(): array - array of [Medium](Medium.md) objects

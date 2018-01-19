@@ -142,21 +142,21 @@ method and parameters you used to call it.
 
 Here's the descriptions of all response models:
 - [Artist](doc/Artist.md)
-- Date
-- MBId
+- [Date](doc/Date.md)
+- [MBId](doc/MBId.md)
 - [Medium](doc/Medium.md)
-- Recording
-- Release
-- ReleaseEvent
-- Result
-- Submission
+- [Recording](doc/Recording.md)
+- [Release](doc/Release.md)
+- [ReleaseEvent](doc/ReleaseEvent.md)
+- [Result](doc/Result.md)
+- [Submission](doc/Submission.md)
 - [Track](doc/Track.md)
 
 Collection response models:
-- MBIdCollection
-- ResultCollection
-- SubmissionCollection
-- TrackCollection
+- [MBIdCollection](doc/Collection/MBIdCollection.md)
+- [ResultCollection](doc/Collection/ResultCollection.md)
+- [SubmissionCollection](doc/Collection/SubmissionCollection.md)
+- [TrackCollection](doc/Collection/TrackCollection.md)
 
 >**NB!** Response models has a lot of fields, but some of them can be empty. It's because of scope of meta parameters you send to the method.
 Different scope of meta values can return different results. All available meta values you can find in the class `Meta`. It's highly recommended 

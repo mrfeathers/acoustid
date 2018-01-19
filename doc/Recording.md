@@ -1,0 +1,26 @@
+## Recording
+
+- `id`
+    - setId(string $id): void
+    - getId(): string
+- `score`
+    - setScore(float $score): void
+    - getScore(): float
+- `sources`
+    - setSources(int $sources): void
+    - getSources(): int
+- `title`
+    - setTitle(string $title): void
+    - getTitle(): string
+- `duration`
+    - setDuration(float $duration): void
+    - getDuration(): float
+- `artists`
+    - setArtists(array $artists): void
+    - getArtists(): array - array of [Artist](Artist.md) objects
+- `releaseGroups`
+    - setReleaseGroups(array $releaseGroups): void
+    - getReleaseGroups(): array - array of [ReleaseGroup](ReleaseGroup.md) objects
+- `releases`
+    - setReleases(array $releases): void
+    - getReleases(): array - array of [Release](Release.md) objects
