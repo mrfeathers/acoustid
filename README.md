@@ -38,9 +38,8 @@ So, acoustid.org has some available actions, that are represented in the package
     Meta::RECORDINGS,
     Meta::RELEASES,
  ];
- 
- $fingerPrint = new FingerPrint($fingerPrintContent, $fingerPrintDuration);
- $resultCollection = $acoustidClient->lookupByFingerPrint($fingerPrint, $meta);
+  
+ $resultCollection = $acoustidClient->lookupByFingerPrint($fingerPrintContent, $fingerPrintDuration, $meta);
  ```
  You will get an instance of class `ResultCollection`, contains several (or one) objects of `Result` class. 
  `ResultCollection` is iterable, so you can just use it as array:

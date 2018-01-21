@@ -4,7 +4,7 @@ namespace AcoustidApi;
 
 use AcoustidApi\DataCompressor\DataCompressorInterface;
 use AcoustidApi\Exception\{AcoustidApiException, AcoustidException};
-use AcoustidApi\FingerPrint\{FingerPrint, FingerPrintCollection, FingerPrintCollectionNormalizer};
+use AcoustidApi\FingerPrint\{FingerPrintCollection, FingerPrintCollectionNormalizer};
 use AcoustidApi\Request\{Request, RequestFactory};
 use AcoustidApi\ResponseModel\Collection\{CollectionModel, MBIdCollection, SubmissionCollection, TrackCollection};
 use AcoustidApi\ResponseModel\Collection\ResultCollection;
@@ -82,20 +82,21 @@ class AcoustidClient
     }
 
     /**
-     * @param FingerPrint $fingerPrint
+     * @param string $fingerprint
+     * @param int $duration
      * @param array $meta - all meta values are available in AcoustidApi/Meta class
      *
      * @return ResultCollection
      * @throws AcoustidException
      */
-    public function lookupByFingerPrint(FingerPrint $fingerPrint, array $meta = []): ResultCollection
+    public function lookupByFingerPrint(string $fingerprint, int $duration, array $meta = []): ResultCollection
     {
         $this->checkApiKey();
 
         $request = $this->requestFactory->createCompressedPostRequest($this->compressor, Actions::LOOKUP, $this->apiKey)
             ->addParameters([
-                    'fingerprint' => $fingerPrint->getFingerprint(),
-                    'duration' => $fingerPrint->getDuration(),
+                    'fingerprint' => $fingerprint,
+                    'duration' => $duration,
                     'meta' => $meta,
                     'format' => self::FORMAT,
                 ]

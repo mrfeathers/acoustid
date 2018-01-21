@@ -22,7 +22,7 @@ class LookupByFingerprintTest extends AcoustidMethodTest
 
     public function testLookUpByFingerPrint()
     {
-        $result = $this->clientWithKey->lookupByFingerPrint($this->createFingerPrint());
+        $result = $this->clientWithKey->lookupByFingerPrint('fingerprint', 10);
 
         $this->assertInstanceOf(self::EXPECTED_RETURN_TYPE, $result);
     }
@@ -33,14 +33,6 @@ class LookupByFingerprintTest extends AcoustidMethodTest
     public function shouldThrowExceptionIfNoApiKey()
     {
         $this->expectException(AcoustidException::class);
-        $this->clientWithoutKey->lookupByFingerPrint($this->createFingerPrint());
-    }
-
-    /**
-     * @return FingerPrint
-     */
-    private function createFingerPrint(): FingerPrint
-    {
-        return new FingerPrint('fingerprint', 10);
+        $this->clientWithoutKey->lookupByFingerPrint('fingerprint', 10);
     }
 }

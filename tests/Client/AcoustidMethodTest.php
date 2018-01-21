@@ -70,7 +70,7 @@ class AcoustidMethodTest extends TestCase
     public function methodsProvider()
     {
         return [
-            ['lookupByFingerPrint', [new FingerPrint('', 0)]],
+            ['lookupByFingerPrint', ['', 0]],
             ['lookupByTrackId', ['']],
             ['submit', [new FingerPrintCollection([]), '']],
             ['getSubmissionStatus', [0]],
