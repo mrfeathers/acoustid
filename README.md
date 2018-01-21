@@ -78,6 +78,7 @@ So, acoustid.org has some available actions, that are represented in the package
  has embedded MusicBrainz tags, please send the MusicBrainz recording ID. Otherwise you can send the 
  textual metadata.
  
+ Use `FingerPrintCollection` instance as argument. This class is just a wrapper under array of [`FingerPrint`](/doc/Fingerprint.md) objects.
  ```php
  //create collection of fingerprints
  $fingerPrintCollection = new FingerPrintCollection([
@@ -156,8 +157,6 @@ Collection response models:
 - [ResultCollection](doc/Collection/ResultCollection.md)
 - [SubmissionCollection](doc/Collection/SubmissionCollection.md)
 - [TrackCollection](doc/Collection/TrackCollection.md)
-
-- [`FingerPrint`](/doc/Fingerprint.md)
 
 >**NB!** Response models has a lot of fields, but some of them can be empty. It's because of scope of meta parameters you send to the method.
 Different scope of meta values can return different results. All available meta values you can find in the class `Meta`. It's highly recommended 
