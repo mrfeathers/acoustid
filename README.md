@@ -137,7 +137,7 @@ $mbidCollection = $acoustidClient->listByMBId($mbids);
 ## Response models and Meta
 
 Response models contain all known fields acoustid.org API can return. Unfortunately, acoustid.org doesn't have a full documentation
-for all possible response structures. So if you get an exception with message `Can't deserialize response`, please [open an issue](https://github.com/MrFeathers/acoustid/issues/new) and provide
+for all possible response structures. So if you get an `AcoustidSerializerException` exception, please [open an issue](https://github.com/MrFeathers/acoustid/issues/new) and provide
 method and parameters you used to call it.
 
 Here's the descriptions of all response models:
