@@ -5,13 +5,13 @@ namespace AcoustidApi\ResponseModel;
 class Submission
 {
     /** @var  int */
-    protected $index;
+    protected $index = 0;
     /** @var  string */
-    protected $status;
+    protected $status = '';
     /** @var  int */
-    protected $id;
+    protected $id = 0;
     /** @var  array - ['id' => string] */
-    protected $result;
+    protected $result = [];
 
     /**
      * @return int

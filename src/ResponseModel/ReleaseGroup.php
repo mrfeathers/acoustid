@@ -7,7 +7,7 @@ class ReleaseGroup
     /** @var  string */
     protected $id;
     /** @var  string */
-    protected $type;
+    protected $type = '';
     /** @var  Artist[] */
     protected $artists = [];
     /** @var  string */
@@ -15,7 +15,7 @@ class ReleaseGroup
     /** @var  Release[] */
     protected $releases = [];
     /** @var  array */
-    protected $secondaryTypes;
+    protected $secondaryTypes = [];
 
     /**
      * @return string

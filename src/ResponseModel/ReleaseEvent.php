@@ -6,9 +6,9 @@ namespace AcoustidApi\ResponseModel;
 class ReleaseEvent
 {
     /** @var  string */
-    protected $country;
+    protected $country = '';
     /** @var  Date */
-    protected $date;
+    protected $date = null;
 
     /**
      * @return string
@@ -19,9 +19,9 @@ class ReleaseEvent
     }
 
     /**
-     * @return Date
+     * @return Date|null
      */
-    public function getDate(): Date
+    public function getDate(): ?Date
     {
         return $this->date;
     }
@@ -35,9 +35,9 @@ class ReleaseEvent
     }
 
     /**
-     * @param Date $date
+     * @param Date|null $date
      */
-    public function setDate(Date $date): void
+    public function setDate(?Date $date): void
     {
         $this->date = $date;
     }

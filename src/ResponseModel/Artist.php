@@ -7,7 +7,7 @@ class Artist
     /** @var  string */
     protected $id;
     /** @var  string */
-    protected $name;
+    protected $name = '';
 
     /**
      * @return string

@@ -7,13 +7,13 @@ class Medium
     /** @var  Track[] */
     protected $tracks = [];
     /** @var  int */
-    protected $position;
+    protected $position = 0;
     /** @var  string */
-    protected $format;
+    protected $format = '';
     /** @var  int */
-    protected $trackCount;
+    protected $trackCount = 0;
     /** @var  string */
-    protected $title;
+    protected $title = '';
 
     /**
      * @return Track[]

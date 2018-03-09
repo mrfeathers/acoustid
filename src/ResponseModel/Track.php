@@ -8,9 +8,9 @@ class Track
     /** @var  string */
     protected $id;
     /** @var  string */
-    protected $title;
+    protected $title = '';
     /** @var  int */
-    protected $position;
+    protected $position = 0;
     /** @var  Artist[] */
     protected $artists = [];
 
