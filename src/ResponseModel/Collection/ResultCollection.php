@@ -8,7 +8,7 @@ class ResultCollection extends CollectionModel
 {
 
     /** @var Result[] */
-    private $results;
+    private $results = [];
 
     /**
      * @return array

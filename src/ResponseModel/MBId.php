@@ -7,7 +7,7 @@ class MBId
     /** @var  string */
     protected $mbid;
     /** @var  Track[] */
-    protected $tracks;
+    protected $tracks = [];
 
     /**
      * @return string

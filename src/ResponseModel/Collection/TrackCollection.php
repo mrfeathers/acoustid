@@ -7,7 +7,7 @@ use AcoustidApi\ResponseModel\Track;
 class TrackCollection extends CollectionModel
 {
     /** @var Track[] */
-    private $tracks;
+    private $tracks = [];
 
     /**
      * @return Track[]

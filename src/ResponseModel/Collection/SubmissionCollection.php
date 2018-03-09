@@ -8,7 +8,7 @@ class SubmissionCollection extends CollectionModel
 {
 
     /** @var Submission[] */
-    private $submissions;
+    private $submissions = [];
 
     /**
      * @return Submission[]

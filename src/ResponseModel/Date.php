@@ -7,11 +7,11 @@ use DateTime;
 class Date
 {
     /** @var int */
-    private $day;
+    private $day = 0;
     /** @var int */
-    private $month;
+    private $month = 0;
     /** @var int */
-    private $year;
+    private $year = 0;
 
     /**
      * @return int

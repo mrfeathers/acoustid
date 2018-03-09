@@ -7,17 +7,17 @@ class Release
     /** @var  string */
     protected $id;
     /** @var  string */
-    protected $title;
+    protected $title = '';
     /** @var  int */
-    protected $trackCount;
+    protected $trackCount = 0;
     /** @var  int */
-    protected $mediumCount;
+    protected $mediumCount = 0;
     /** @var  ReleaseEvent[] */
     protected $releaseEvents = [];
     /** @var  string */
-    protected $country;
+    protected $country = '';
     /** @var  Date */
-    protected $date;
+    protected $date = null;
     /** @var  Medium[] */
     protected $mediums = [];
 
@@ -70,9 +70,9 @@ class Release
     }
 
     /**
-     * @return Date
+     * @return Date|null
      */
-    public function getDate(): Date
+    public function getDate(): ?Date
     {
         return $this->date;
     }
@@ -142,9 +142,9 @@ class Release
     }
 
     /**
-     * @param Date $date
+     * @param Date|null $date
      */
-    public function setDate(Date $date): void
+    public function setDate(?Date $date): void
     {
         $this->date = $date;
     }

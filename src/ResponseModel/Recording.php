@@ -7,13 +7,13 @@ class Recording
     /** @var  string */
     protected $id;
     /** @var  float */
-    protected $score;
+    protected $score = 0;
     /** @var  int */
-    protected $sources;
+    protected $sources = 0;
     /** @var  string */
-    protected $title;
+    protected $title = '';
     /** @var  float */
-    protected $duration;
+    protected $duration = 0;
     /** @var  Artist[] */
     protected $artists = [];
     /** @var  ReleaseGroup[] */

@@ -7,7 +7,7 @@ use AcoustidApi\ResponseModel\MBId;
 class MBIdCollection extends CollectionModel
 {
     /** @var MBId[] */
-    private $mbids;
+    private $mbids = [];
 
     /**
      * @return MBId[]

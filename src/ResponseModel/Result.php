@@ -7,7 +7,7 @@ class Result
     /** @var  string */
     protected $id;
     /** @var  float */
-    protected $score;
+    protected $score = 0;
     /** @var  Recording[] */
     protected $recordings = [];
 
